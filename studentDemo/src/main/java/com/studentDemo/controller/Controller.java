@@ -22,6 +22,8 @@ public class Controller {
     @Autowired
     private StudentService studentService;
 
+    @Autowired
+    private AdminService adminService;
 
     @GetMapping("/students")
     public List<Student> getList(){
@@ -34,6 +36,10 @@ public class Controller {
         return student;
     }
 
+    @PostMapping("/login")
+    public String login(@RequestBody Admin admin){
+        return adminService.verify(admin);
+    }
 
 
 

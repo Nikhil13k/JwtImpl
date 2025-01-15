@@ -29,7 +29,7 @@ public class SecurityConfig {
         return http
                 .csrf(Customizer -> Customizer.disable())
                 .authorizeHttpRequests(request -> request
-                        .requestMatchers("addNew")
+                        .requestMatchers("addNew","register","login")
                         .permitAll()
                         .anyRequest()
                         .authenticated())
@@ -46,5 +46,10 @@ public class SecurityConfig {
         provider.setPasswordEncoder(new BCryptPasswordEncoder(12));
         provider.setUserDetailsService(userDetailsService);
         return provider;
+    }
+
+    @Bean
+    public AuthenticationManager authenticationManager(AuthenticationConfiguration authConfig) throws Exception {
+        return authConfig.getAuthenticationManager();
     }
 }

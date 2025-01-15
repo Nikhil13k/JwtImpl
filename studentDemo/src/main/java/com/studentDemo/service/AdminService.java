@@ -12,12 +12,18 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.List;
 
-//@Service
+@Service
 public class AdminService {
 
 
     @Autowired
     private AdminRepository adminRepository;
+
+    @Autowired
+    AuthenticationManager authManager;
+
+    @Autowired
+    private JwtService jwtService;
 
     public Admin addNew(Admin admin){
         admin.setPassword(new BCryptPasswordEncoder(12)
@@ -29,12 +35,15 @@ public class AdminService {
         return adminRepository.findAll();
     }
 
-//    public String verify(Admin admin){
-//        Authentication authentication = authManager.authenticate(
-//                new UsernamePasswordAuthenticationToken(admin.getUsername(),admin.getPassword()));
-//        if(authentication.isAuthenticated()){
-//            return "Success";
-//        }
-//        return "failed";
-//    }
+
+
+    public String verify(Admin admin){
+        Authentication authentication = authManager.authenticate(
+                new UsernamePasswordAuthenticationToken(admin.getUsername(),admin.getPassword()));
+
+        if(authentication.isAuthenticated()){
+            return jwtService.generateToken(admin.getUsername());
+        }
+        return "failed";
+    }
 }
