@@ -21,8 +21,8 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @EnableWebSecurity
 public class SecurityConfig {
 
-//    @Autowired
-//    private JwtFilter jwtFilter;
+    @Autowired
+    private JwtFilter jwtFilter;
 
     @Autowired
     public UserDetailsService userDetailsService;
@@ -38,7 +38,7 @@ public class SecurityConfig {
                         .authenticated())
                 .httpBasic(Customizer.withDefaults())
                 .sessionManagement(session -> session.sessionCreationPolicy((SessionCreationPolicy.STATELESS)))
-//                .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class)
+                .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class)
                 .build();
     }
 
