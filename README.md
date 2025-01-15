@@ -8,10 +8,10 @@
 2. **Subsequent Requests**:
    - `JwtFilter` -> `JwtService` -> `SecurityContextHolder` -> Access to protected resources
 
-  
+-----------------------------------------------------------------------------------------------------------------------------------------------
 
-
- 1. User Login Request
+   **Detailed**
+1. User Login Request
 - The user sends a login request to the `/login` endpoint with their username and password.
   
 2. Authentication Process
