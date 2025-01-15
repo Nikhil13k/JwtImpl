@@ -45,4 +45,11 @@ It intercepts HTTP requests to validate token
 - It disables CSRF, permits access to certain endpoints, and requires authentication for others.
 - It adds the `JwtFilter` before the `UsernamePasswordAuthenticationFilter`.
 
+The JwtFilter is added before the UsernamePasswordAuthenticationFilter to ensure that the JWT token is validated before the username and password authentication process. 
+
+Token Validation: The JwtFilter checks the Authorization header for a JWT token and validates it. If the token is valid, it sets the authentication in the SecurityContextHolder.  
+
+Authentication Bypass: By placing the JwtFilter before the UsernamePasswordAuthenticationFilter, the application can bypass the username and password authentication if a valid JWT token is present. This allows for stateless authentication using tokens.  
+
+Security Context: If the JwtFilter successfully validates the token, it sets the authentication in the SecurityContextHolder, which means that subsequent filters, including the UsernamePasswordAuthenticationFilter, will see the user as already authenticated.
 
